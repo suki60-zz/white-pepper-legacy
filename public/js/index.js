@@ -1,27 +1,16 @@
 $window = $(window)
 
 $(() => {
-  $('#paper').on('click', (event) => {
-    const div = createDiv(event)
+  $('#paper').on('click', (e) => {
+    const div = createInput(e)
     div.appendTo('body')
-
-
     div.focus()
   })
 })
 
-$window.on('keydown', (event) => {
-  type($('div.selected'), event)
-})
-
-function createDiv(event) {
-  return $('<div/>', {
-    style: `top: ${event.clientY}px; left: ${event.clientX}px`,
+function createInput(e) {
+  return $('<input/>', {
+    style: `top: ${e.clientY - 18}px; left: ${e.clientX - 1}px`,
     class: 'selected'
-    })
-}
-
-function type(div, event) {
-  text = div.text()
-  div.text(text.concat(event.key))
+  })
 }
