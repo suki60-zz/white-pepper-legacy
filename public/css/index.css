@@ -8,14 +8,12 @@ input {
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
-
   resize: none; /*remove the resize handle on the bottom right*/
 }
 
-#paper {
+#white-pepper {
   width: 100vw;
   height: 100vh;
   cursor: text;
-}
-
+  font-size: 18px;
 }
