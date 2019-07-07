@@ -15,5 +15,5 @@ input {
   width: 100vw;
   height: 100vh;
   cursor: text;
-  font-size: 18px;
+  font-family: 'Roboto Mono', monospace;
 }
