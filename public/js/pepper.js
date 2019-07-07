@@ -1,7 +1,7 @@
 class Pepper {
-  constructor(e) {
-    this.clientY = e.clientY - 18
-    this.clientX = e.clientX - 1
+  constructor(client) {
+    this.clientX = client.x
+    this.clientY = client.y
     this.$elem = this.createInput()
     this.$elem.focus()
     this.addEvents()
@@ -31,9 +31,13 @@ class Pepper {
 
   addEvents() {
     this.$elem.on('keydown', (e) => {
-      this.resize(e)
+      if (e.keyCode == 13) {
+        new Pepper({ x: this.clientX, y: this.clientY + 24})
+      } else {
+        this.resize(e)
+      }
     })
-    
+
     this.$elem.on('keyup', (e) => {
       this.resize(e)
     })

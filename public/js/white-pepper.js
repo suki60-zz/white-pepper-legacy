@@ -6,7 +6,9 @@ class WhitePepper {
 
   addEvents() {
     this.$elem.on('click', (e) => {
-      if ($(e.target).is(this.$elem)) new Pepper(e)
+      if ($(e.target).is(this.$elem)) {
+        new Pepper({ x: e.clientX - 1, y: e.clientY - 18 })
+      }
     })
   }
 }
