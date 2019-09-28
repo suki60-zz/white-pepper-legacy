@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'sinatra'
-
-enable :sessions
+require 'sequel'
+require 'mysql2'
+require 'yaml'
 
 if development?
   require 'sinatra/reloader'
@@ -10,15 +11,27 @@ if development?
   require 'better_errors'
 end
 
-configure :development do
-  use BetterErrors::Middleware
-  BetterErrors.application_root = __dir__
-end
+class WhitePepper < Sinatra::Base
+  enable :sessions
 
-before do
-  @path = request.path_info.delete('/').to_sym
-end
+  set :environment, (ENV['RACK_ENV'] || :development).to_sym
 
-get '/' do
-  slim :index
+  configure :development do
+    use BetterErrors::Middleware
+    BetterErrors.application_root = __dir__
+  end
+
+  configure do
+    env = ENV['RACK_ENV']
+    DB = Sequel.connect(YAML.safe_load(File.open('database.yml'))[env])
+  end
+
+  before do
+    @path = request.path_info.delete('/').to_sym
+  end
+
+  get '/' do
+    raise
+    slim :index
+  end
 end
