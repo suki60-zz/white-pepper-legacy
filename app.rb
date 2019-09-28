@@ -31,7 +31,6 @@ class WhitePepper < Sinatra::Base
   end
 
   get '/' do
-    raise
     slim :index
   end
 end
