@@ -14,7 +14,7 @@ end
 class WhitePepper < Sinatra::Base
   enable :sessions
 
-  set :environment, (ENV['RACK_ENV'] || :development).to_sym
+  set :environment, ENV['RACK_ENV'].to_sym
 
   configure :development do
     use BetterErrors::Middleware
