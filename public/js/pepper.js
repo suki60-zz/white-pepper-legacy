@@ -29,10 +29,20 @@ class Pepper {
     }
   }
 
+  preventUnfocusWithTab() {
+    setTimeout(() => {
+      this.$elem.focus()
+    }, 0)
+  }
+
   addEvents() {
     this.$elem.on('keydown', (e) => {
       if (e.keyCode == 13) {
         new Pepper({ x: this.clientX, y: this.clientY + 24})
+
+      } else if (e.keyCode == 9) {
+        this.preventUnfocusWithTab()
+
       } else {
         this.resize(e)
       }
