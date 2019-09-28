@@ -2,6 +2,8 @@
 
 require 'sinatra'
 
+enable :sessions
+
 if development?
   require 'sinatra/reloader'
   require 'pry'
