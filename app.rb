@@ -35,6 +35,14 @@ class WhitePepper < Sinatra::Base
   end
 
   get '/' do
+    user_id = session[:session_id][0..6]
+    user = User[user_id]
+
+    unless user
+      user = User.new
+      user.set_fields({ id: user_id, created_at: Time.now }, %i(id created_at))
+      user.save(raise_on_failure: false)
+    end
     slim :index
   end
 end
