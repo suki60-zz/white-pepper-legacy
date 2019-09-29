@@ -17,6 +17,7 @@ class WhitePepper < Sinatra::Base
   set :environment, ENV['RACK_ENV'].to_sym
 
   configure :development do
+    register Sinatra::Reloader
     use BetterErrors::Middleware
     BetterErrors.application_root = __dir__
   end
