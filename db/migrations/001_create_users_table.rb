@@ -1,7 +1,7 @@
 Sequel.migration do
   change do
     create_table :users do
-      primary_key :id
+      String :id, primary_key: true, size: 7
       DateTime :created_at
     end
   end
