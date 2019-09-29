@@ -48,4 +48,20 @@ class WhitePepper < Sinatra::Base
 
     slim :index
   end
+
+  put '/pepper' do
+    pepper = Pepper[params[:id]]
+
+    if pepper
+      pepper.update(text: params[:text])
+    else
+      pepper = Pepper.new(text: params[:text],
+                 client_x: params[:client_x],
+                 client_y: params[:client_y])
+
+      pepper.save(raise_on_failure: false)
+    end
+
+    json status: 200, message: 'pepper created or updated'
+  end
 end

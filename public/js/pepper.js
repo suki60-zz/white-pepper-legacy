@@ -35,6 +35,21 @@ class Pepper {
     }, 0)
   }
 
+  save() {
+    console.log('save')
+    $.ajax({
+      method: 'PUT',
+      url: '/pepper',
+      data: { hey: 'hey' },
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (jqXHR) {
+        console.log('error')
+      },
+    });
+  }
+
   addEvents() {
     this.$elem.on('keydown', (e) => {
       if (e.keyCode == 13) {
@@ -53,7 +68,9 @@ class Pepper {
     })
 
     this.$elem.on('focusout', () => {
+      console.log('gooo')
       this.deleteIfSizeZero()
+      this.save()
     })
   }
 }
