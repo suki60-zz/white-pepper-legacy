@@ -27,6 +27,9 @@ class WhitePepper < Sinatra::Base
     DB = Sequel.connect(YAML.safe_load(File.open('database.yml'))[env])
   end
 
+  require './models/pepper'
+  require './models/user'
+
   before do
     @path = request.path_info.delete('/').to_sym
   end
