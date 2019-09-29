@@ -43,6 +43,9 @@ class WhitePepper < Sinatra::Base
       user.set_fields({ id: user_id, created_at: Time.now }, %i(id created_at))
       user.save(raise_on_failure: false)
     end
+
+    @peppers = Pepper.where(user_id: user.id).all
+
     slim :index
   end
 end

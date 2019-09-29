@@ -16,6 +16,15 @@ html
 
   body
     #white-pepper
+      - if @peppers&.any?
+        - @peppers.each do |pepper|
+          input[
+            style="top: #{pepper.client_y}px; left: #{pepper.client_x}px"
+            type='text'
+            size=pepper.text.size
+            value=pepper.text
+          ]
+
     . tabindex="0"
     script src="/js/index.js"
     script src="/js/white-pepper.js"
