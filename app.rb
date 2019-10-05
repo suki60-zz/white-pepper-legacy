@@ -4,6 +4,7 @@ require 'sinatra'
 require 'sequel'
 require 'mysql2'
 require 'yaml'
+require 'json'
 
 if development?
   require 'sinatra/reloader'
@@ -50,18 +51,21 @@ class WhitePepper < Sinatra::Base
   end
 
   put '/pepper' do
-    pepper = Pepper[params[:id]]
+    user_id = session[:session_id][0..6]
+    user = User[user_id]
+    pepper = Pepper[params[:id].to_i]
 
     if pepper
       pepper.update(text: params[:text])
     else
       pepper = Pepper.new(text: params[:text],
-                 client_x: params[:client_x],
-                 client_y: params[:client_y])
+                          client_x: params[:client_x],
+                          client_y: params[:client_y],
+                          user_id: user.id)
 
       pepper.save(raise_on_failure: false)
     end
 
-    json status: 200, message: 'pepper created or updated'
+    JSON.generate(session)
   end
 end

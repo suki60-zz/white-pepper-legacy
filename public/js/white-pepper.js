@@ -26,7 +26,6 @@ class WhitePepper {
 
   createPeppers() {
     $('input').each((i, input) => {
-      console.log(input)
       new Pepper(input)
     })
   }

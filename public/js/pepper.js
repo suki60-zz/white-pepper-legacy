@@ -23,7 +23,9 @@ class Pepper {
   deleteIfSizeZero() {
     if (this.textLength() == 0) {
       this.$elem.remove()
+      return true
     }
+    return false
   }
 
   preventUnfocusWithTab() {
@@ -40,12 +42,20 @@ class Pepper {
     })
   }
 
+  data() {
+    return ({
+      id: this.$elem.data('id'),
+      text: this.$elem.val(),
+      client_x: this.getClientX(),
+      client_y: this.getClientY()
+    })
+  }
+
   save() {
-    console.log('save')
     $.ajax({
       method: 'PUT',
       url: '/pepper',
-      data: { hey: 'hey' },
+      data: this.data(),
       success: function (data) {
         console.log(data)
       },
@@ -76,8 +86,9 @@ class Pepper {
     })
 
     this.$elem.on('focusout', () => {
-      this.deleteIfSizeZero()
-      this.save()
+      if (!this.deleteIfSizeZero()) {
+        this.save()
+      }
     })
   }
 }
