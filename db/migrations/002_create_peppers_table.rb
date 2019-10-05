@@ -5,7 +5,7 @@ Sequel.migration do
       String :text, text: true
       Fixnum :client_x
       Fixnum :client_y
-      foreign_key :user_id, :users, unique: true, type: 'varchar(7)'
+      foreign_key :user_id, :users, type: 'varchar(7)'
     end
   end
 end
