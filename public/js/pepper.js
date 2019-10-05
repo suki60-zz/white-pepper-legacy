@@ -1,18 +1,15 @@
 class Pepper {
-  constructor(client) {
-    this.clientX = client.x
-    this.clientY = client.y
-    this.$elem = this.createInput()
-    this.$elem.focus()
+  constructor(elem) {
+    this.$elem = $(elem)
     this.addEvents()
   }
 
-  createInput() {
-    return $('<input/>', {
-      style: `top: ${this.clientY}px; left: ${this.clientX}px`,
-      type: 'text',
-      size: 1,
-    }).appendTo('#white-pepper')
+  getClientX() {
+    return parseInt(this.$elem.css('left'))
+  }
+
+  getClientY() {
+    return parseInt(this.$elem.css('top'))
   }
 
   textLength() {
@@ -35,6 +32,14 @@ class Pepper {
     }, 0)
   }
 
+  createInput() {
+    return $('<input/>', {
+      style: `top: ${this.getClientY() + 24}px; left: ${this.getClientX()}px`,
+      type: 'text',
+      size: 1,
+    })
+  }
+
   save() {
     console.log('save')
     $.ajax({
@@ -53,7 +58,10 @@ class Pepper {
   addEvents() {
     this.$elem.on('keydown', (e) => {
       if (e.keyCode == 13) {
-        new Pepper({ x: this.clientX, y: this.clientY + 24})
+        const input = this.createInput()
+        input.appendTo('#white-pepper')
+        new Pepper(input)
+        input.focus()
 
       } else if (e.keyCode == 9) {
         this.preventUnfocusWithTab()
@@ -68,7 +76,6 @@ class Pepper {
     })
 
     this.$elem.on('focusout', () => {
-      console.log('gooo')
       this.deleteIfSizeZero()
       this.save()
     })

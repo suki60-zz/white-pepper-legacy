@@ -2,13 +2,32 @@ class WhitePepper {
   constructor($elem) {
     this.$elem = $elem
     this.addEvents()
+    this.createPeppers()
   }
 
   addEvents() {
     this.$elem.on('click', (e) => {
       if ($(e.target).is(this.$elem)) {
-        new Pepper({ x: e.clientX - 1, y: e.clientY - 18 })
+        const input = this.createInput(e)
+        input.appendTo(`#${this.$elem.attr('id')}`)
+        new Pepper(input)
+        input.focus()
       }
+    })
+  }
+
+  createInput(e) {
+    return $('<input/>', {
+      style: `top: ${e.clientY - 18}px; left: ${e.clientX - 1}px`,
+      type: 'text',
+      size: 1,
+    })
+  }
+
+  createPeppers() {
+    $('input').each((i, input) => {
+      console.log(input)
+      new Pepper(input)
     })
   }
 }

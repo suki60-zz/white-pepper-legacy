@@ -20,8 +20,9 @@ html
         - @peppers.each do |pepper|
           input[
             style="top: #{pepper.client_y}px; left: #{pepper.client_x}px"
+            data-id=pepper.id
             type='text'
-            size=pepper.text.size
+            size=(pepper.text.size + 1)
             value=pepper.text
           ]
 
