@@ -53,19 +53,20 @@ class WhitePepper < Sinatra::Base
   put '/pepper' do
     user_id = session[:session_id][0..6]
     user = User[user_id]
-    pepper = Pepper[params[:id].to_i]
+    pepper = Pepper.where(id: params[:id].to_i).first
 
     if pepper
-      pepper.update(text: params[:text])
+      pepper.text = params[:text]
     else
       pepper = Pepper.new(text: params[:text],
                           client_x: params[:client_x],
                           client_y: params[:client_y],
                           user_id: user.id)
-
-      pepper.save(raise_on_failure: false)
     end
 
-    JSON.generate(session)
+    pepper.save(raise_on_failure: false)
+
+    JSON.generate(name: pepper&.id)
+  end
   end
 end
