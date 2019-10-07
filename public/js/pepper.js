@@ -2,6 +2,7 @@ class Pepper {
   constructor(elem) {
     this.$elem = $(elem)
     this.addEvents()
+    this.$elem.data('id') ? (this.id = this.$elem.data('id')) : this.save()
   }
 
   getClientX() {
@@ -44,7 +45,7 @@ class Pepper {
 
   data() {
     return ({
-      id: this.$elem.data('id'),
+      id: this.id,
       text: this.$elem.val(),
       client_x: this.getClientX(),
       client_y: this.getClientY()
@@ -56,8 +57,10 @@ class Pepper {
       method: 'PUT',
       url: '/pepper',
       data: this.data(),
-      success: function (data) {
+      dataType: 'json',
+      success: (data) => {
         console.log(data)
+        this.id = data.id
       },
       error: function (jqXHR) {
         console.log('error')

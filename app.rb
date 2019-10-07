@@ -53,6 +53,7 @@ class WhitePepper < Sinatra::Base
   put '/pepper' do
     user_id = session[:session_id][0..6]
     user = User[user_id]
+
     pepper = Pepper.where(id: params[:id].to_i).first
 
     if pepper
@@ -66,16 +67,13 @@ class WhitePepper < Sinatra::Base
 
     pepper.save(raise_on_failure: false)
 
-    JSON.generate(name: pepper&.id)
+    JSON.generate(id: pepper&.id)
   end
 
   delete '/pepper' do
-    user_id = session[:session_id][0..6]
-    user = User[user_id]
-    pepper = Pepper.where(id: params[:id].to_i).first
+    puts params[:id]
+    Pepper.where(id: params[:id].to_i).delete
 
-    pepper.delete if pepper
-
-    JSON.generate(name: pepper&.id)
+    JSON.generate(pepper: 'deleted')
   end
 end
