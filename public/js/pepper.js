@@ -65,6 +65,20 @@ class Pepper {
     });
   }
 
+  delete() {
+    $.ajax({
+      method: 'DELETE',
+      url: '/pepper',
+      data: this.data(),
+      success: function (data) {
+        console.log(data)
+      },
+      error: function (jqXHR) {
+        console.log('error')
+      },
+    });
+  }
+
   addEvents() {
     this.$elem.on('keydown', (e) => {
       if (e.keyCode == 13) {
@@ -86,9 +100,7 @@ class Pepper {
     })
 
     this.$elem.on('focusout', () => {
-      if (!this.deleteIfSizeZero()) {
-        this.save()
-      }
+      this.deleteIfSizeZero() ? this.delete() : this.save()
     })
   }
 }

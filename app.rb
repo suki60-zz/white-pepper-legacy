@@ -68,5 +68,14 @@ class WhitePepper < Sinatra::Base
 
     JSON.generate(name: pepper&.id)
   end
+
+  delete '/pepper' do
+    user_id = session[:session_id][0..6]
+    user = User[user_id]
+    pepper = Pepper.where(id: params[:id].to_i).first
+
+    pepper.delete if pepper
+
+    JSON.generate(name: pepper&.id)
   end
 end
