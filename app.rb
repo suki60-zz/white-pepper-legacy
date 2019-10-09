@@ -25,7 +25,7 @@ class WhitePepper < Sinatra::Base
 
   configure do
     env = ENV['RACK_ENV']
-    DB = Sequel.connect(YAML.safe_load(File.open('database.yml'))[env])
+    DB = Sequel.connect YAML.load(ERB.new( File.read(File.join("config","database.yml"))).result)[env]
   end
 
   require './models/pepper'
