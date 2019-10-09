@@ -7,8 +7,8 @@ development:
 
 production:
     adapter: 'postgres'
-    host: ENV['HOST']
-    database: ENV['DATABASE']
-    user: ENV['USER']
-    password: ENV['PASSWORD']
-    port: ENV['PORT']
+    host: 'ec2-50-17-227-28.compute-1.amazonaws.com'
+    database: 'd3ddmjh3ameilj'
+    user: kxutcxrmuehsxw
+    password: e3eb370983b819f91f071542e4f36387f6613826136d2fa541fe8e388aef8577
+    port: '5432'
