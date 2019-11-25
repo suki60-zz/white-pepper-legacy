@@ -59,7 +59,7 @@ class Pepper {
       data: this.data(),
       dataType: 'json',
       success: (data) => {
-        console.log(data)
+        console.log('saved')
         this.id = data.id
       },
       error: function (jqXHR) {
