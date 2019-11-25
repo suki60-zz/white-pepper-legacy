@@ -14,6 +14,7 @@ end
 
 class WhitePepper < Sinatra::Base
   enable :sessions
+  set :session_secret, 'secret'
 
   set :environment, ENV['RACK_ENV'].to_sym
 
